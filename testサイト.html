@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Braze SDKテスト</title>
+  <!-- Braze SDKのスクリプトを読み込む -->
+  <script type="text/javascript">
+    +function(a,p,P,b,y){a.braze=a.braze||{};a.brazeQueue=[];
+    for(var s="open close getUser setCustomUserAttribute setCustomEvent logCustomEvent logPurchase addAlias".split(" "),n=0;n<s.length;n++)(function(){var p=s[n];a.braze[p]=function(){a.brazeQueue.push([p].concat(Array.prototype.slice.call(arguments,0)))}})();
+    b=p.createElement(P);b.type="text/javascript";b.async=1;b.src="https://js.appboycdn.com/web-sdk/3.3/braze.min.js";
+    y=p.getElementsByTagName(P)[0];y.parentNode.insertBefore(b,y)}(window,document,"script");
+
+    // Braze SDKの初期設定
+    window.braze.initialize("YOUR-API-KEY", {
+      baseUrl: "YOUR-REST-ENDPOINT",
+      enableLogging: true
+    });
+    window.braze.openSession();
+  </script>
+</head>
+<body>
+  <h1>Braze SDKテストページ</h1>
+  <button onclick="sendCustomEvent()">カスタムイベント送信</button>
+
+  <script>
+    function sendCustomEvent() {
+      // カスタムイベントを送信
+      window.braze.logCustomEvent("Test Event");
+      alert("カスタムイベントが送信されました！");
+    }
+  </script>
+</body>
+</html>
