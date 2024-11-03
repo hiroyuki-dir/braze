@@ -21,6 +21,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Replace environment variables in index.html
+        run: |
+          sed -i "s/YOUR-API-KEY/${{ secrets.BRAZE_API_KEY }}/g" index.html
+          sed -i "s|YOUR-REST-ENDPOINT|${{ secrets.BRAZE_REST_ENDPOINT }}|g" index.html
+
       - name: Build project
         run: npm run build  # 必要な場合、ビルドコマンドを調整
 
@@ -29,8 +34,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist  # ビルド後の出力フォルダ
-
-      - name: Set environment variables
-        env:
-          BRAZE_API_KEY: ${{ secrets.BRAZE_API_KEY }}
-          BRAZE_REST_ENDPOINT: ${{ secrets.BRAZE_REST_ENDPOINT }}
