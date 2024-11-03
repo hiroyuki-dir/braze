@@ -1,36 +1,4 @@
-name: Deploy to GitHub Pages
-
-on:
-  push:
-    branches:
-      - main  # mainブランチにプッシュされたらデプロイを実行
-
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Replace environment variables in index.html
-        run: |
-          sed -i "s/YOUR-API-KEY/${{ secrets.BRAZE_API_KEY }}/g" index.html
-          sed -i "s|YOUR-REST-ENDPOINT|${{ secrets.BRAZE_REST_ENDPOINT }}|g" index.html
-
-      - name: Build project
-        run: npm run build  # 必要な場合、ビルドコマンドを調整
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist  # ビルド後の出力フォルダ
+- name: Replace environment variables in index.html
+  run: |
+    sed -i "s|YOUR-API-KEY|${{ secrets.BRAZE_API_KEY }}|g" index.html
+    sed -i "s|YOUR-REST-ENDPOINT|${{ secrets.BRAZE_REST_ENDPOINT }}|g" index.html
