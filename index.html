@@ -21,14 +21,29 @@
 </head>
 <body>
   <h1>Braze SDKテストページ</h1>
+  <!-- ログインフォーム -->
+  <form id="loginForm" onsubmit="setExternalIdAndSendEvent(); return false;">
+    <label for="userId">ユーザーID：</label>
+    <input type="text" id="userId" name="userId" required>
+    <button type="submit">ログイン</button>
+  </form>
+
   <button onclick="sendCustomEvent()">カスタムイベント送信</button>
 
   <script>
-    function sendCustomEvent() {
-      // カスタムイベントを送信
-      window.braze.logCustomEvent("Test Event");
-      alert("カスタムイベントが送信されました！");
+    // External IDの設定とイベント送信
+    function setExternalIdAndSendEvent() {
+      const userId = document.getElementById("userId").value;
+      if (userId) {
+        // External IDの設定
+        window.braze.changeUser(userId);
+        
+        // イベントの送信
+        window.braze.logCustomEvent("UserLoggedIn");
+        alert("ユーザーIDが設定され、イベントが送信されました！");
+      }
     }
+
   </script>
 </body>
 </html>
