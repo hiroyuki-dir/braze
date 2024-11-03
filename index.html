@@ -44,6 +44,12 @@
       }
     }
 
+  // カスタムイベント送信関数
+  function sendCustomEvent() {
+    window.braze.logCustomEvent("Test Event");
+    alert("カスタムイベントが送信されました！");
+  }
+
   </script>
 </body>
 </html>
